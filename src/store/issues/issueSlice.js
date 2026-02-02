@@ -25,21 +25,23 @@ export const issueSlice = createSlice({
     UPDATE_OPINION(state, action) {
       const { userOpinion, userId, issueId } = action.payload;
       const updatedIssues = state.issues.map((issue) => {
-        let newIssue = { ...issue };
-        if (newIssue._id === issueId) {
-          if (issue.opinions.length > 0) {
-            const updatedOpinions = newIssue.opinions.map((opinion) => {
-              if (opinion.userId === userId) {
-                return { ...opinion, opinion: userOpinion };
-              }
-              return opinion;
-            });
-            newIssue.opinions = updatedOpinions;
+        if (issue._id === issueId) {
+          const opinions = issue.opinions ? [...issue.opinions] : [];
+          const existingOpinionIndex = opinions.findIndex(
+            (op) => op.userId === userId
+          );
+
+          if (existingOpinionIndex !== -1) {
+            opinions[existingOpinionIndex] = {
+              ...opinions[existingOpinionIndex],
+              opinion: userOpinion,
+            };
           } else {
-            newIssue.opinions = [{ userId: userId, opinion: issueId }];
+            opinions.push({ userId: userId, opinion: userOpinion });
           }
+          return { ...issue, opinions: opinions };
         }
-        return newIssue;
+        return issue;
       });
       state.issues = updatedIssues;
     },

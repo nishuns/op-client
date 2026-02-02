@@ -12,7 +12,7 @@ function App() {
   // app name
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_PROXY}/api/app/title`)
+      .get(`${import.meta.env.VITE_APP_PROXY}/api/app/title`)
       .then((response) => {
         document.title = response.data.title;
       })

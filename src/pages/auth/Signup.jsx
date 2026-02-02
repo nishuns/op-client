@@ -38,11 +38,14 @@ const Signup = (props) => {
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      axios
-         .post(`${process.env.REACT_APP_PROXY}/api/users/add`, {
-            ...credentials
-         })
-         .then((response) => {
+    axios
+      .post(`${import.meta.env.VITE_APP_PROXY}/api/users/add`, {
+        firstName: credentials.firstName,
+        lastName: credentials.lastName,
+        email: credentials.email,
+        password: credentials.password,
+      })
+      .then((response) => {
             switch (response.status) {
                case 200:
                   handleClearField();

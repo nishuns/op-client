@@ -25,7 +25,7 @@ const Header = (props) => {
       <div className="top-nav">
         <ul className="top-nav__menu">
           {topNavLinks.map((route) => (
-            <li className="top-nav__item">
+            <li className="top-nav__item" key={route.name}>
               <Link to={route.link} className="router-link">
                 {route.name}
               </Link>
