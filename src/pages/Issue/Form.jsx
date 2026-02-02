@@ -35,17 +35,16 @@ const IssueForm = (props) => {
     }, 2000);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const isIssueCreated = dispatch(
+    const success = await dispatch(
       addIssue(credentials.title, credentials.content)
     );
-    console.log(isIssueCreated);
-    setIssueCreated(true);
-    setTimeout(() => {
-      handleClearField();
-      showNotification();
-    }, 3000);
+    if (success) {
+      setIssueCreated(true);
+    } else {
+      showNotification("Failed to create issue");
+    }
   };
   if (isIssueCreated) {
     return <Navigate to="/" />;

@@ -13,6 +13,8 @@ const Issue = ({ hash, issue }) => {
     dislikes: 0,
   });
 
+  if (!issue) return null;
+
   useEffect(() => {
     if (isAuth) {
       if (issue && issue.opinions && issue.opinions.length > 0) {
