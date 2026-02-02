@@ -4,7 +4,7 @@ import { clearCredentials } from "../../utils/localStorge";
 
 export const login = (credentials) => (dispatch) => {
   axios
-    .post(`${process.env.REACT_APP_PROXY}/api/auth/login`, {
+    .post(`${import.meta.env.VITE_APP_PROXY}/api/auth/login`, {
       ...credentials,
     })
     .then((response) => {
